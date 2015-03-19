@@ -9,9 +9,6 @@
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
-  "background": {
-    "page": "src/popup.html"
-  },
   "browser_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "Eventbrite Extension",

@@ -11,26 +11,37 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
   var geoHandler = function(position) {
     $timeout(function() {
       loadComplete();
-      load('Loading nearby events...');
       $scope.userPosition = position;
-      _events.get({
-        latitude: position.coords.latitude, 
-        longitude: position.coords.longitude,
-        range: $scope.eventRange + ($scope.unitsInKilometres? 'km' : 'mi')
-      }, 
-      function(rsp) {
-        loadComplete();
-        if (rsp.events && rsp.events.length > 0) {
-          addEvents(rsp.events);
-          $scope.currentEvent = $scope.eventQueue.dequeue();
-        }
-      });
+      loadEvents();
     });
   };
 
   function addEvents(eventList) {
     angular.forEach(eventList, function(e) {
       $scope.eventQueue.enqueue(e);
+    });
+  };
+
+  function loadEvents() {
+    load('Loading nearby events...');
+    if (localStorage.events != null && angular.fromJson(localStorage.events).length > 0) {
+      loadComplete();
+      addEvents(angular.fromJson(localStorage.events));
+      $scope.nextEvent();
+      return;
+    }
+    _events.get({
+      latitude: $scope.userPosition.coords.latitude, 
+      longitude: $scope.userPosition.coords.longitude,
+      range: $scope.eventRange + ($scope.unitsInKilometres? 'km' : 'mi')
+    }, 
+    function(rsp) {
+      loadComplete();
+      if (rsp.events && rsp.events.length > 0) {
+        localStorage.events = JSON.stringify(rsp.events);
+        addEvents(rsp.events);
+        $scope.nextEvent();
+      }
     });
   };
 

@@ -4,7 +4,8 @@
   <head>
     <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script src="js/resources/angular/angular.min.js"></script>
+    <script src="js/resources/angular/angular.js"></script>
+    <script src="js/resources/angular/angular-resource.min.js"></script>
     <script src="js/app.js"></script>
   </head>
 
@@ -14,16 +15,18 @@
         <h1>Event Now</h1>
       </div>
       <div class="content-wrapper">
-
-        <div class="spinner"  ng-if="userPosition == null">
-          <div class="rect1"></div>
-          <div class="rect2"></div>
-          <div class="rect3"></div>
-          <div class="rect4"></div>
-          <div class="rect5"></div>
+        <div id="loading" ng-if="!loadingQueue.empty()">
+          <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+          </div>
+          <span>{{loadingQueue.peek()}}</span>
         </div>
 
-        <div ng-if="userPosition != null">
+        <div ng-if="loadingQueue.empty()">
           Your position is: {{userPosition.coords.latitude}} {{userPosition.coords.longitude}}
         </div>
 

@@ -10,9 +10,27 @@
 
   <body>
     <div ng-controller="MainController">
-      <header>
+      <div class="header">
         <h1>Event Now</h1>
-      </header>
+      </div>
+      <div class="content-wrapper">
+
+        <div class="spinner"  ng-if="userPosition == null">
+          <div class="rect1"></div>
+          <div class="rect2"></div>
+          <div class="rect3"></div>
+          <div class="rect4"></div>
+          <div class="rect5"></div>
+        </div>
+
+        <div ng-if="userPosition != null">
+          Your position is: {{userPosition.coords.latitude}} {{userPosition.coords.longitude}}
+        </div>
+
+      </div>
+      <div class="footer">
+        Created by Sameer Chitley
+      </div>
     </div>
   </body>
 

@@ -15,7 +15,7 @@
   <body>
     <div ng-controller="MainController">
       <div class="header">
-        <h1>Event Now</h1>
+        Event Finder
       </div>
       <div class="content-wrapper">
         <div id="loading" ng-if="!loadingQueue.empty()">
@@ -30,7 +30,16 @@
         </div>
 
         <div ng-if="loadingQueue.empty()">
-          Your position is: {{userPosition.coords.latitude}} {{userPosition.coords.longitude}}
+          <event-card event="currentEvent"></event-card>
+
+          <div class="content-row">
+            <div class="action-button" ng-click="viewEvent()">
+              View Event
+            </div>
+            <div class="action-button" ng-click="nextEvent()">
+              Show Me Another 
+            </div>
+          </div>
         </div>
 
       </div>

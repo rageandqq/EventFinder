@@ -13,7 +13,8 @@ body {
 }
 
 .header {
-  font-size: 20px;
+  font-size: 40px;
+  margin-bottom: 15px;
 }
 
 .footer {
@@ -22,6 +23,36 @@ body {
   right: 10px;
   font-size: 10px !important;
   margin: 0 auto;
+}
+
+.event-card {
+  width: 250px;
+  height: 250px;
+  margin-left: 50px;
+  background-color: #FFF;
+  color: #FC861E;
+  padding: 10px;
+  text-align: none !important;
+}
+
+.content-row {
+  display: inline-flex;
+  width: 100%;
+  margin-top: 15px;
+  padding-left: 44px;
+  padding-right: 50px;
+}
+
+.action-button {
+  display: inline-block;
+  cursor: pointer;
+  background-color: #FFF !important;
+  color: #FC861E !important;
+  width: 35% !important;
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 15px;
 }
 
 /* Spinner taken from http://tobiasahlin.com/spinkit/ */
@@ -35,7 +66,7 @@ body {
 }
 
 .spinner > div {
-  background-color: #fff;
+  background-color: #FFF;
   height: 100%;
   width: 6px;
   display: inline-block;

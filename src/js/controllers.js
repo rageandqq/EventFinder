@@ -1,5 +1,13 @@
 app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', function($scope, $timeout, _events) {
 
+  $scope.nextEvent = function() {
+    $scope.currentEvent = $scope.eventQueue.dequeue();
+  };
+
+  $scope.viewEvent = function() {
+    chrome.tabs.create({url : $scope.currentEvent.url});
+  };
+
   var geoHandler = function(position) {
     $timeout(function() {
       loadComplete();
@@ -12,8 +20,17 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
       }, 
       function(rsp) {
         loadComplete();
-        console.log(rsp);
+        if (rsp.events && rsp.events.length > 0) {
+          addEvents(rsp.events);
+          $scope.currentEvent = $scope.eventQueue.dequeue();
+        }
       });
+    });
+  };
+
+  function addEvents(eventList) {
+    angular.forEach(eventList, function(e) {
+      $scope.eventQueue.enqueue(e);
     });
   };
 
@@ -28,7 +45,7 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
   function init() {
     $scope.name = 'World';
     $scope.userPosition = null;
-    $scope.eventRange = 50;
+    $scope.eventRange = 20;
     $scope.unitsInKilometres = true;
     $scope.currentEvent = null;
     $scope.eventQueue = new Queue();

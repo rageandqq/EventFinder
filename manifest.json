@@ -9,6 +9,9 @@
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
+  "background": {
+    "page": "src/popup.html"
+  },
   "browser_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "Eventbrite Extension",
@@ -16,7 +19,8 @@
   },
   "permissions": [
     "geolocation",
-    "https://www.eventbriteapi.com/v3/*"
+    "https://www.eventbriteapi.com/v3/*",
+    "http://fonts.googleapis.com/*"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

@@ -24,7 +24,7 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
 
   function loadEvents() {
     load('Loading nearby events...');
-    if (localStorage.events != null && angular.fromJson(localStorage.events).length > 0) {
+    if (false && localStorage.events != null && angular.fromJson(localStorage.events).length > 0) {
       loadComplete();
       addEvents(angular.fromJson(localStorage.events));
       $scope.nextEvent();

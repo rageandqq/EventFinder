@@ -1,4 +1,12 @@
-var app = angular.module('EventbriteApp', ['ngResource']);
+var app = angular.module('EventbriteApp', ['ngResource', 'ngMaterial']);
+
+app.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('indigo')
+    .backgroundPalette('indigo', {
+     'default': '900' 
+    });
+});
 
 function Queue() {
   var q = [];

@@ -6,10 +6,6 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
     $scope.currentEvent = $scope.eventQueue.dequeue();
   };
 
-  $scope.viewEvent = function() {
-    chrome.tabs.create({url : $scope.currentEvent.url});
-  };
-
   var geoHandler = function(position) {
     $timeout(function() {
       loadComplete();
@@ -75,5 +71,9 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
 }]);
 
 app.controller('CardController', ['$scope', function($scope) {
+
+  $scope.viewEvent = function() {
+    chrome.tabs.create({url : $scope.event.url});
+  };
 
 }]);

@@ -4,8 +4,8 @@
   color: white;
 }
 
-md-divider { 
-  border-color: white;
+.custom-divider { 
+  border-top-color: white !important;
 }
 
 md-content {

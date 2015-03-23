@@ -1,3 +1,10 @@
-<div class="event-card">
-  <span><b>Event:</b> {{event.name.text}} </span>
-</div>
+<md-card class="custom-card">
+<img ng-src="{{event.logo_url}}" class="md-card-image">
+  <md-card-content>
+    <h2>Event</h2>
+    <p>
+      {{event.name.text}}
+    </p>
+    <br/>
+  </md-card-content>
+</md-card>

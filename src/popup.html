@@ -23,17 +23,18 @@
     <md-content>
 
     <section layout="row" layout-align="center" class="font-large">
-      Event Finder
+      {{appName}} 
     </section>
+    <md-divider></md-divider>
 
-    <section layout="row" layout-align="space-around">
-      <md-progress-circular class="md-hue-2" md-mode="indeterminate" ng-if="!loadingQueue.empty()">
+    <section layout="row" layout-align="space-around" class="middle-content" ng-if="!loadingQueue.empty()">
+      <md-progress-circular class="md-hue-2" md-mode="indeterminate" >
       </md-progress-circular>
     </section>
     <span layout="row" layout-align="space-around">{{loadingQueue.peek()}}</span>
 
     <section layout="column" layout-align="space-around" ng-if="loadingQueue.empty()">
-      <!--event-card event="currentEvent"></event-card-->
+      <event-card event="currentEvent" ng-click="viewEvent()"></event-card>
 
       <section layout="row" layout-align="space-around">
         <md-button class="md-raised md-primary" ng-click="viewEvent()">View Event</md-button>

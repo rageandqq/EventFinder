@@ -1,3 +1,6 @@
+/* Global config */
+APP_NAME = "Event Finder";
+
 var app = angular.module('EventbriteApp', ['ngResource', 'ngMaterial']);
 
 app.config(function($mdThemingProvider) {

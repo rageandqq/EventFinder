@@ -63,6 +63,7 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
     $scope.currentEvent = null;
     $scope.eventQueue = new Queue();
     $scope.loadingQueue = new Queue();
+    $scope.appName = APP_NAME;
 
     load('Fetching location...');
 

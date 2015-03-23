@@ -4,6 +4,10 @@
   color: white;
 }
 
+md-divider { 
+  border-color: white;
+}
+
 md-content {
   width: 350px;
   height: 500px;
@@ -19,12 +23,28 @@ md-content {
   font-size: 10px;
 }
 
-/*.event-card {
-  width: 250px;
-  height: 250px;
-  margin-left: 50px;
-  background-color: #FFF;
-  color: #FC861E;
-  padding: 10px;
-  text-align: none !important;
-}*/
+.middle-content {
+  margin-top: 130px;
+  margin-bottom: 50px;
+}
+
+.custom-card {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: white;
+  cursor: pointer
+}
+
+.custom-card:hover {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.custom-card .md-card-image {
+  max-height: 160px;
+}
+
+.custom-card md-card-content * {
+  color: rgb(140,158,255); /*Manually set to BG color*/
+}

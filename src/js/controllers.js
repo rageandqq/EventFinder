@@ -1,3 +1,5 @@
+bg = chrome.extension.getBackgroundPage();
+
 app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', function($scope, $timeout, _events) {
 
   $scope.nextEvent = function() {
@@ -24,9 +26,9 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
 
   function loadEvents() {
     load('Loading nearby events...');
-    if (false && localStorage.events != null && angular.fromJson(localStorage.events).length > 0) {
+    if (bg.storage.events != null && angular.fromJson(bg.storage.events).length > 0) {
       loadComplete();
-      addEvents(angular.fromJson(localStorage.events));
+      addEvents(angular.fromJson(bg.storage.events));
       $scope.nextEvent();
       return;
     }
@@ -38,7 +40,7 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
     function(rsp) {
       loadComplete();
       if (rsp.events && rsp.events.length > 0) {
-        localStorage.events = JSON.stringify(rsp.events);
+        bg.storage.events = JSON.stringify(rsp.events);
         addEvents(rsp.events);
         $scope.nextEvent();
       }

@@ -37,10 +37,6 @@ md-content {
   cursor: pointer
 }
 
-.custom-card:hover {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-}
-
 .custom-card .md-card-image {
   max-height: 160px;
 }

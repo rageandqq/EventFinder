@@ -1,8 +1,8 @@
 {
-  "name": "Eventbrite Extension",
-  "version": "0.0.0",
+  "name": "Event Finder by Sameer Chitley",
+  "version": "1.0.0",
   "manifest_version": 2,
-  "description": "",
+  "description": "Find nearby events! Powered by Eventbrite.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -10,12 +10,12 @@
   },
   "default_locale": "en",
   "background": {
-    "scripts": ["src/background.js"]
+    "scripts": ["src/js/background.js"]
   },
   "browser_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "Eventbrite Extension",
-    "default_popup": "src/popup.html"
+    "default_title": "Event Finder",
+    "default_popup": "src/views/popup.html"
   },
   "permissions": [
     "geolocation",

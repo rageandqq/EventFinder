@@ -3,6 +3,7 @@ APP_NAME = "Event Finder";
 
 var app = angular.module('EventbriteApp', ['ngResource', 'ngMaterial']);
 
+//Configure Theming for Material Design
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('indigo')
@@ -12,6 +13,7 @@ app.config(function($mdThemingProvider) {
     });
 });
 
+//Implemented custom Queue used in project
 function Queue() {
   var q = [];
   

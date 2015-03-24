@@ -36,5 +36,5 @@ md-content {
 }
 
 .custom-card md-card-content * {
-  color: rgb(140,158,255); /*Manually set to BG color*/
+  color: rgb(63,81,181); /*Manually set to BG color*/
 }

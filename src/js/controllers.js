@@ -33,9 +33,9 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', 'PopularEve
     });
   };
 
-  function loadEvents() {
+  function loadEvents(override) {
     load('Loading nearby events...');
-    if (bg.storage.events != null && angular.fromJson(bg.storage.events).length > 0) {
+    if (override != true && bg.storage.events != null && angular.fromJson(bg.storage.events).length > 0) {
       loadComplete();
       addEvents(angular.fromJson(bg.storage.events));
       $scope.nextEvent();

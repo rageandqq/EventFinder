@@ -7,6 +7,9 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
   //Dequeue event queue and set it as current event
   $scope.nextEvent = function() {
     $scope.currentEvent = $scope.eventQueue.dequeue();
+    if ($scope.currentEvent == null) {
+      $scope.showToast('No events found. Please restart.');
+    }
   };
 
   //Show a toast with a message
@@ -51,7 +54,9 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
 
       if (valueChanged) { //reload if values have changed
         $scope.showToast();
-        loadEvents(true);
+        if ($scope.userPosition != null) { //only reload from API if user has coordinates (otherwise it's still loading)
+          loadEvents(true);
+        }
       }
     }, function() {
       $scope.showToast('Cancelled.');
@@ -94,7 +99,6 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
     }
     else {
       var nextWeekendStart = new Date();
-      var nextWeekendEnd = new Date();
       nextWeekendStart.setHours(0,0,0,0);
 
       var daysToAdd = 0;
@@ -103,6 +107,8 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
       }
       daysToAdd = (nextWeekendStart.getDay() == 6) ? 7 : 6; //only add 6 days if it is sunday, else 7
       nextWeekendStart.setDate(nextWeekendStart.getDate() + daysToAdd); //add 1 week, should be next saturday
+
+      var nextWeekendEnd = new Date(nextWeekendStart.getTime());
       nextWeekendEnd.setDate(nextWeekendStart.getDate() + 2); //2 days after event start (very start of monday)
 
       _eventsRestricted.get({ //find nearby 'popular' events within range happening next weekend
@@ -128,6 +134,7 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
   //end loading and display message
   function handleEventFailure(rsp) {
     loadComplete();
+    $scope.currentEvent = null;
     $scope.showToast('Load failed, please restart.');
   };
 
@@ -172,7 +179,7 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
     var dateString = '';
     dateString += ('000' + date.getUTCFullYear()).slice(-4);
     dateString += '-';
-    dateString += ('0' + date.getUTCMonth()).slice(-2); 
+    dateString += ('0' + (date.getUTCMonth() + 1)).slice(-2); 
     dateString += '-';
     dateString += ('0' + date.getUTCDate()).slice(-2);
     dateString += 'T00:00:00Z';
@@ -187,10 +194,16 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
 app.controller('CardController', ['$scope', function($scope) {
 
   $scope.viewEvent = function() {
+    if ($scope.event == null) {
+      return null;
+    }
     chrome.tabs.create({url : $scope.event.url});
   };
 
   $scope.getDate = function() {
+    if ($scope.event == null) {
+      return null;
+    }
     a = new Date($scope.event.start.utc);
     return a.toLocaleString();
   };

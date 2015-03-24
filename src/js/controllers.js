@@ -1,10 +1,23 @@
 bg = chrome.extension.getBackgroundPage();
 
-app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', function($scope, $timeout, _events) {
+app.controller('MainController', ['$scope', '$timeout', '$mdDialog', 'PopularEvents', function($scope, $timeout,$mdDialog,  _events) {
 
   $scope.nextEvent = function() {
     $scope.currentEvent = $scope.eventQueue.dequeue();
   };
+
+  $scope.openSettings = function(event) {
+    $mdDialog.show({
+      controller: 'SettingsController',
+      templateUrl: 'views/settings.html',
+      targetEvent: event,
+    })
+    .then(function(answer) {
+      $scope.alert = 'You said the information was "' + answer + '".';
+    }, function() {
+      $scope.alert = 'You cancelled the dialog.';
+    });
+  }
 
   var geoHandler = function(position) {
     $timeout(function() {
@@ -60,6 +73,7 @@ app.controller('MainController', ['$scope', '$timeout', 'PopularEvents', functio
     $scope.eventQueue = new Queue();
     $scope.loadingQueue = new Queue();
     $scope.appName = APP_NAME;
+    $scope.showTooltip = false;
 
     load('Fetching location...');
 
@@ -74,6 +88,22 @@ app.controller('CardController', ['$scope', function($scope) {
 
   $scope.viewEvent = function() {
     chrome.tabs.create({url : $scope.event.url});
+  };
+
+}]);
+
+app.controller('SettingsController', ['$scope', '$mdDialog', function($scope, $mdDialog) {
+
+  $scope.hide = function() {
+    $mdDialog.hide();
+  };
+
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+
+  $scope.resolve = function(settings) {
+    $mdDialog.hide(settings);
   };
 
 }]);

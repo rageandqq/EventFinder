@@ -4,15 +4,9 @@
   color: white;
 }
 
-.custom-divider { 
-  border-top-color: white !important;
-}
-
 md-content {
   width: 350px;
   height: 500px;
-  padding-left: 5px;
-  padding-right: 5px;
 }
 
 .font-large {

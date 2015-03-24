@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/styles.css">
     <link rel="stylesheet" type="text/css" href="../bower_components/angular-material/angular-material.css">
 
-    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="../bower_components/angular-aria/angular-aria.js"></script>
     <script src="../bower_components/angular-animate/angular-animate.js"></script>
@@ -22,25 +22,33 @@
   <body ng-controller="MainController">
     <md-content>
 
-    <section layout="row" layout-align="center" class="font-large">
-      {{appName}} 
-    </section>
-    <md-divider class="custom-divider"></md-divider>
+      <md-toolbar>
+        <h2 class="md-toolbar-tools">
+          {{appName}} 
+        </h2>
+       <md-button class="md-fab md-fab-top-right right" aria-label="Settings" ng-click="showTooltip = false; openSettings($event)">
+          <md-icon md-svg-src="../resources/imgs/settings.svg" style="width: 24px; height: 24px;"></md-icon>
+          <md-tooltip md-visible="showTooltip">
+            Settings
+          </md-tooltip>
+        </md-button>
+      </md-toolbar>
 
-    <section layout="row" layout-align="space-around" class="middle-content" ng-if="!loadingQueue.empty()">
-      <md-progress-circular class="md-primary" md-mode="indeterminate" >
-      </md-progress-circular>
-    </section>
-    <span layout="row" layout-align="space-around">{{loadingQueue.peek()}}</span>
-
-    <section layout="column" layout-align="space-around" ng-if="loadingQueue.empty()">
-      <event-card event="currentEvent"></event-card>
-
-      <section layout="row" layout-align="space-around">
-        <md-button class="md-raised md-primary" ng-click="nextEvent()">Show Me Another</md-button>
+      <section layout="row" layout-align="space-around" class="middle-content" ng-if="!loadingQueue.empty()">
+        <md-progress-circular class="md-primary" md-mode="indeterminate" >
+        </md-progress-circular>
       </section>
+      <span layout="row" layout-align="space-around">{{loadingQueue.peek()}}</span>
 
-    </section>
+      <section layout="column" layout-align="space-around" ng-if="loadingQueue.empty()">
+        <event-card event="currentEvent"></event-card>
+
+        <section layout="row" layout-align="space-around">
+          <md-button class="md-raised md-primary" ng-click="nextEvent()">Show Me Another</md-button>
+        </section>
+
+      </section>
+      
     </md-content>
   </body>
 </html>

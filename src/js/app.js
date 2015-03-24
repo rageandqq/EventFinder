@@ -6,6 +6,7 @@ var app = angular.module('EventbriteApp', ['ngResource', 'ngMaterial']);
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('indigo')
+    .accentPalette('blue')
     .backgroundPalette('indigo', {
      'default': '900' 
     });

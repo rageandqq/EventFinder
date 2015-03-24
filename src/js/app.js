@@ -41,9 +41,15 @@ function Queue() {
     }
     return elem;
 
-  }
+  };
 
   this.peek = function() {
     return this.empty() ? null : q[0];
-  }
+  };
+
+  this.clear = function() {
+    while(!this.empty()) {
+      this.dequeue();
+    }
+  };
 };

@@ -1,10 +1,12 @@
 <md-card class="custom-card" ng-click="viewEvent()">
 <img ng-src="{{event.logo_url}}" class="md-card-image">
   <md-card-content>
-    <h2>Event</h2>
+    <h3>{{event.name.text}}</h2>
     <p>
-      {{event.name.text}}
+      <br/>
+      <b>Hosted by:</b> {{event.organizer.name}}
+      <br/>
+      <b>Date:</b> {{getDate()}}
     </p>
-    <br/>
   </md-card-content>
 </md-card>

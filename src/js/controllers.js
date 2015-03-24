@@ -90,6 +90,11 @@ app.controller('CardController', ['$scope', function($scope) {
     chrome.tabs.create({url : $scope.event.url});
   };
 
+  $scope.getDate = function() {
+    a = new Date($scope.event.start.utc);
+    return a.toLocaleString();
+  };
+
 }]);
 
 app.controller('SettingsController', ['$scope', '$mdDialog', function($scope, $mdDialog) {

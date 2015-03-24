@@ -1,4 +1,4 @@
-bg = chrome.extension.getBackgroundPage();
+bg = chrome.extension.getBackgroundPage(); //use as storage container until extension is reloaded
 
 app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast', '$animate', 'PopularEvents', function($scope, $timeout,$mdDialog,  $mdToast, $animate, _events) {
 
@@ -6,12 +6,15 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
     $scope.currentEvent = $scope.eventQueue.dequeue();
   };
 
-  $scope.showToast = function() {
+  $scope.showToast = function(msg) {
     $mdToast.show({
       controller: ToastController,
       templateUrl: 'views/toast.html',
       hideDelay: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      locals: {
+        message: msg
+      }
     });
   };
 
@@ -29,10 +32,25 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
       }
     })
     .then(function(settings) {
-      $scope.eventRange = settings.eventRange;
-      $scope.findEventsNextWeekend = settings.findEventsNextWeekend;
-      $scope.unitsInKilometres = settings.unitsInKilometres;
-    }, function() {});
+      if (bg.storage == null) {
+        bg.storage = {};
+      }
+      var valueChanged = 
+            (settings.eventRange != $scope.eventRange
+          || settings.findEventsNextWeekend != $scope.findEventsNextWeekend
+          || settings.unitsInKilometres != $scope.unitsInKilometres);
+
+      bg.storage.eventRange = $scope.eventRange = settings.eventRange;
+      bg.storage.findEventsNextWeekend = $scope.findEventsNextWeekend = settings.findEventsNextWeekend;
+      bg.storage.unitsInKilometres = $scope.unitsInKilometres = settings.unitsInKilometres;
+
+      if (valueChanged) {
+        loadEvents(true);
+        $scope.showToast();
+      }
+    }, function() {
+      $scope.showToast('Cancelled.');
+    });
   };
 
   var geoHandler = function(position) {
@@ -83,14 +101,14 @@ app.controller('MainController', ['$scope', '$timeout', '$mdDialog', '$mdToast',
   function init() {
     $scope.name = 'World';
     $scope.userPosition = null;
-    $scope.eventRange = 20;
-    $scope.unitsInKilometres = true;
+    $scope.eventRange = bg.storage.eventRange || 20;
+    $scope.unitsInKilometres = bg.storage.unitsInKilomteres || true;
     $scope.currentEvent = null;
     $scope.eventQueue = new Queue();
     $scope.loadingQueue = new Queue();
     $scope.appName = APP_NAME;
     $scope.showTooltip = false;
-    $scope.findEventsNextWeekend = false;
+    $scope.findEventsNextWeekend = bg.storage.findEventsNextWeekend || false;
 
     load('Fetching location...');
 
@@ -134,9 +152,15 @@ function SettingsController ($scope, $mdDialog, settings) {
     });
   };
 
+  $scope.getUnits = function() {
+    return $scope.settings.unitsInKilometres?'kilometres':'miles';
+  };
+
 };
 
-function ToastController($scope, $mdToast) {
+function ToastController($scope, $mdToast, message) {
+
+  $scope.message = message || 'Settings Saved!';
 
   $scope.closeToast = function() {
     $mdToast.hide();

@@ -26,11 +26,8 @@
         <h1 class="md-toolbar-tools" style="font-size:25px">
           {{appName}} 
         </h2>
-       <md-button class="md-fab md-fab-top-right right" aria-label="Settings" ng-click="showTooltip = false; openSettings($event)" style="width: 40px; height: 40px; margin-right: -5px; margin-top: -5px;">
+       <md-button class="md-fab md-accent md-fab-top-right right" aria-label="Settings" ng-click="showTooltip = false; openSettings($event)" style="width: 40px; height: 40px; margin-right: -5px; margin-top: -5px;">
           <md-icon md-svg-src="../resources/imgs/settings.svg" style="width: 24px; height: 24px;"></md-icon>
-          <md-tooltip md-visible="showTooltip">
-            Settings
-          </md-tooltip>
         </md-button>
       </md-toolbar>
 
@@ -43,7 +40,7 @@
       <section layout="column" layout-align="space-around" ng-if="loadingQueue.empty()">
         <event-card event="currentEvent"></event-card>
 
-        <section layout="row" layout-align="space-around">
+        <section layout="row" layout-align="space-around" style="margin-bottom: 20px;">
           <md-button class="md-raised md-primary" ng-click="nextEvent()">Show Me Another</md-button>
         </section>
 

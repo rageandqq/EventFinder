@@ -1,7 +1,32 @@
 <md-dialog aria-label="Settings">
-<md-content>
-Settings
-<br>
-<md-button class="md-raised md-primary" ng-click="resolve()">OK</md-button>
-</md-content>
+
+<md-toolbar>
+<h2 style="font-size:20px">
+  Settings
+</h2>
+</md-toolbar>
+
+<div class="md-padding">
+  <p>
+  Find events within: {{settings.eventRange}} {{getUnits()}}
+    <md-slider flex ng-model="settings.eventRange" min="10" max="50" aria-label="Event Range" class="md-primary">
+    </md-slider>
+  </p>
+
+  <p>
+    <md-switch ng-model="settings.unitsInKilometres" aria-label="Units">
+      Range units: {{getUnits()}}
+    </md-switch>
+  </p>
+  <p>
+    <md-checkbox ng-model="settings.findEventsNextWeekend" aria-label="Events Next Weekend">
+      Search for events happening next weekend only  
+    </md-checkbox>
+  </p>
+
+</div>
+
+
+<md-button class="md-raised md-primary" ng-click="resolve()">Save</md-button>
+
 </md-dialog>
